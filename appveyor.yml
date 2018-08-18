@@ -18,9 +18,9 @@ build_script:
 
     $client.DownloadFile("http://hg.openjdk.java.net/openjfx/jfx/rt/archive/" + $env:HG_REV + ".zip", $env:HG_REV + ".zip")
 
-    Expand-Archive $env:HG_REV + ".zip"
+    Expand-Archive ($env:HG_REV + ".zip")
 
-    cd "rt-" + $env:HG_REV
+    cd ("rt-" + $env:HG_REV)
 
     ./gradlew zipsStandaloneWindows
 test: off
