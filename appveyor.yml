@@ -32,6 +32,10 @@ install:
     (Get-Content build.gradle) | Foreach-Object {$_ -replace '^ext.OS_ARCH =.+$', 'ext.OS_ARCH = "x86"'} | Set-Content build.gradle
 
     ./gradlew clean
+
+    if ($LastExitCode -eq 0) {
+      $host.SetShouldExit(0)
+    }
 cache:
   - C:\Users\appveyor\.gradle
   - C:\ant
@@ -49,6 +53,10 @@ build_script:
     (Get-Content build.gradle) | Foreach-Object {$_ -replace '^ext.OS_ARCH =.+$', 'ext.OS_ARCH = "x86"'} | Set-Content build.gradle
 
     ./gradlew zips
+
+    if ($LastExitCode -eq 0) {
+      $host.SetShouldExit(0)
+    }
 test: off
 artifacts:
 - path: build/artifacts/bundles/*.zip
