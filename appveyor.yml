@@ -12,12 +12,12 @@ image: Visual Studio 2017
 platform: x86
 build_script:
 - ps: >-
-  $Env:JAVA_HOME = "C:\Program Files (x86)\Java\jdk10"
-  $client = New-Object System.Net.WebClient
-  $client.DownloadFile("http://hg.openjdk.java.net/openjfx/jfx/rt/archive/${HG_REV}.zip", "${HG_REV}.zip")
-  Expand-Archive ${HG_REV}.zip
-  cd rt-${HG_REV}
-  ./gradlew zipsStandaloneWindows
+    $Env:JAVA_HOME = "C:\Program Files (x86)\Java\jdk10"
+    $client = New-Object System.Net.WebClient
+    $client.DownloadFile("http://hg.openjdk.java.net/openjfx/jfx/rt/archive/${HG_REV}.zip", "${HG_REV}.zip")
+    Expand-Archive ${HG_REV}.zip
+    cd rt-${HG_REV}
+    ./gradlew zipsStandaloneWindows
 test: off
 artifacts:
 - path: build/artifacts/bundles/*.zip
