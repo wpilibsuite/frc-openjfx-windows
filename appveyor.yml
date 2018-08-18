@@ -13,9 +13,7 @@ build_script:
 - ps: >-
     $Env:JAVA_HOME = "C:\Program Files\Java\jdk10"
 
-    $client = New-Object System.Net.WebClient
-
-    $client.DownloadFile(("http://hg.openjdk.java.net/openjfx/jfx/rt/archive/" + $env:HG_REV + ".zip"), ($env:HG_REV + ".zip"))
+    Invoke-WebRequest ("http://hg.openjdk.java.net/openjfx/jfx/rt/archive/" + $env:HG_REV + ".zip") -OutFile ($env:HG_REV + ".zip")
 
     dir
 
@@ -23,7 +21,7 @@ build_script:
 
     cd ($env:HG_REV + "\rt-" + $env:HG_REV)
 
-    ./gradlew zipsStandaloneWin
+    ./gradlew sdkWin
 test: off
 artifacts:
 - path: build/artifacts/bundles/*.zip
