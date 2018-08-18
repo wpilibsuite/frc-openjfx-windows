@@ -1,0 +1,31 @@
+version: "{branch}-{build}"
+environment:
+  global:
+    PATCH_VER: 22
+    HG_REV: 15326b4db607
+pull_requests:
+  do_not_increment_build_number: true
+branches:
+  only:
+  - master
+image: Visual Studio 2017
+platform: x86
+build_script:
+- ps: >-
+  $Env:JAVA_HOME = "C:\Program Files (x86)\Java\jdk10"
+  $client = New-Object System.Net.WebClient
+  $client.DownloadFile("http://hg.openjdk.java.net/openjfx/jfx/rt/archive/${HG_REV}.zip", "${HG_REV}.zip")
+  Expand-Archive ${HG_REV}.zip
+  cd rt-${HG_REV}
+  ./gradlew zipsStandaloneWindows
+test: off
+artifacts:
+- path: build/artifacts/bundles/*.zip
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: 9vEYpyGo8MTutVQyQTMECylYj87OoVNDLt0Jd7KuJK4DbyKs2VrGmVARDxLv6uR0
+  artifact: /.*\.zip/
+  on:
+    branch: master
+    appveyor_repo_tag: true
