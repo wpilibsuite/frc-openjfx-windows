@@ -12,9 +12,17 @@ image: Visual Studio 2017
 platform: x86
 install:
 - ps: >-
-    $Env:JAVA_HOME = "C:\Program Files\Java\jdk10"
+    $env:JAVA_HOME = "C:\Program Files\Java\jdk10"
 
-    Invoke-WebRequest ("http://hg.openjdk.java.net/openjfx/jfx/rt/archive/" + $env:HG_REV + ".zip") -OutFile ($env:HG_REV + ".zip")
+    if (!(Test-Path -Path "C:\ant\apache-ant-1.9.9")) {
+      Invoke-WebRequest 'https://archive.apache.org/dist/ant/binaries/apache-ant-1.9.9-bin.zip' -OutFile 'C:\ant-bin.zip'
+      Expand-Archive 'C:\ant-bin.zip' -DestinationPath 'C:\ant'
+    }
+    $env:PATH = ('C:\ant\apache-ant-1.9.9\bin;' + $env:Path)
+
+    if (!(Test-Path -Path ($env:HG_REV + ".zip"))) {
+      Invoke-WebRequest ("http://hg.openjdk.java.net/openjfx/jfx/rt/archive/" + $env:HG_REV + ".zip") -OutFile ($env:HG_REV + ".zip")
+    }
 
     Expand-Archive ($env:HG_REV + ".zip")
 
@@ -25,10 +33,12 @@ install:
     ./gradlew clean
 cache:
   - C:\Users\appveyor\.gradle
+  - C:\ant
   - ${HG_REV}.zip
 build_script:
 - ps: >-
-    $Env:JAVA_HOME = "C:\Program Files\Java\jdk10"
+    $env:JAVA_HOME = "C:\Program Files\Java\jdk10"
+    $env:PATH = ('C:\ant\apache-ant-1.9.9\bin;' + $env:Path)
 
     Expand-Archive ($env:HG_REV + ".zip")
 
