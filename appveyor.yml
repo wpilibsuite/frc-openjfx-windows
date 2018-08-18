@@ -16,7 +16,7 @@ build_script:
 
     $client = New-Object System.Net.WebClient
 
-    $client.DownloadFile("http://hg.openjdk.java.net/openjfx/jfx/rt/archive/" + $env:HG_REV + ".zip", $env:HG_REV + ".zip")
+    $client.DownloadFile(("http://hg.openjdk.java.net/openjfx/jfx/rt/archive/" + $env:HG_REV + ".zip"), ($env:HG_REV + ".zip"))
 
     Expand-Archive ($env:HG_REV + ".zip")
 
