@@ -9,42 +9,17 @@ branches:
   only:
   - master
 image: Visual Studio 2017
-platform: x86
-install:
-- ps: >-
-    $env:JAVA_HOME = "C:\Program Files\Java\jdk10"
-
-    if (!(Test-Path -Path "C:\ant\apache-ant-1.9.9")) {
-      Invoke-WebRequest 'https://archive.apache.org/dist/ant/binaries/apache-ant-1.9.9-bin.zip' -OutFile 'C:\ant-bin.zip'
-      Expand-Archive 'C:\ant-bin.zip' -DestinationPath 'C:\ant'
-    }
-
-    $env:PATH = ('C:\ant\apache-ant-1.9.9\bin;' + $env:Path)
-
-    if (!(Test-Path -Path ($env:HG_REV + ".zip"))) {
-      Invoke-WebRequest ("http://hg.openjdk.java.net/openjfx/jfx/rt/archive/" + $env:HG_REV + ".zip") -OutFile ($env:HG_REV + ".zip")
-    }
-
-    Expand-Archive ($env:HG_REV + ".zip")
-
-    cd ($env:HG_REV + "\rt-" + $env:HG_REV)
-
-    (Get-Content build.gradle) | Foreach-Object {$_ -replace '^ext.OS_ARCH =.+$', 'ext.OS_ARCH = "x86"'} | Set-Content build.gradle
-
-    ./gradlew clean
-
-    if ($LastExitCode -eq 0) {
-      $host.SetShouldExit(0)
-    }
-cache:
-  - C:\Users\appveyor\.gradle
-  - C:\ant
-  - ${HG_REV}.zip
 build_script:
 - ps: >-
     $env:JAVA_HOME = "C:\Program Files\Java\jdk10"
 
+    Invoke-WebRequest 'https://archive.apache.org/dist/ant/binaries/apache-ant-1.9.9-bin.zip' -OutFile 'ant-bin.zip'
+
+    Expand-Archive 'ant-bin.zip' -DestinationPath 'C:\ant'
+
     $env:PATH = ('C:\ant\apache-ant-1.9.9\bin;' + $env:Path)
+
+    Invoke-WebRequest ("http://hg.openjdk.java.net/openjfx/jfx/rt/archive/" + $env:HG_REV + ".zip") -OutFile ($env:HG_REV + ".zip")
 
     Expand-Archive ($env:HG_REV + ".zip")
 
