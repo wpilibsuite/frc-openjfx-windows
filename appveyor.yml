@@ -33,6 +33,8 @@ build_script:
 
     $env:MSVC_VER = '14.15.26726'
 
+    $env:MSVC_REDIST_VER = '14.15.26706'
+
     ./gradlew zips
 
     if ($LastExitCode -eq 0) {
