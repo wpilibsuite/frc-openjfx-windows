@@ -10,6 +10,7 @@ branches:
   - master
 image: Visual Studio 2017
 install:
+  - cmd: C:\cygwin64\setup-x86_64.exe -qgnNdO -l C:\cygwin64\var\cache\setup -R c:\cygwin64 -s http://cygwin.mirror.constant.com -P unzip -P zip
   - ps: dir 'c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc'
   - ps: dir 'c:\program files (x86)\microsoft visual studio\2017\community\vc\redist\msvc'
 build_script:
