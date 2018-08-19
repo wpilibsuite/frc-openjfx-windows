@@ -45,24 +45,7 @@ build_script:
     if ($LastExitCode -eq 0) {
       $host.SetShouldExit(0)
     }
-
-    cd build
-
-    Add-Type -AssemblyName System.Text.Encoding
-
-    Add-Type -AssemblyName System.IO.Compression.FileSystem
-
-    class FixedEncoder : System.Text.UTF8Encoding {
-      FixedEncoder() : base($true) { }
-
-      [byte[]] GetBytes([string] $s)
-      {
-        $s = $s.Replace("\\", "/");
-        return ([System.Text.UTF8Encoding]$this).GetBytes($s);
-      }
-    }
-
-    [System.IO.Compression.ZipFile]::CreateFromDirectory('sdk', 'sdk.zip', [System.IO.Compression.CompressionLevel]::Optimal, $false, [FixedEncoder]::new())
+- cmd: C:\cygwin64\bin\bash -e -l -c "cd ${HG_REV}/rt-${HG_REV}/build && zip -r sdk.zip sdk"
 test: off
 artifacts:
 - path: ${HG_REV}/rt-${HG_REV}/build/sdk.zip
