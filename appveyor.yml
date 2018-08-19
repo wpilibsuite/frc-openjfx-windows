@@ -34,6 +34,8 @@ build_script:
 
     (Get-Content buildSrc/genVSproperties.bat) | Foreach-Object {$_ -replace 'Professional', 'Community'} | Set-Content buildSrc/genVSproperties.bat
 
+    (Get-Content modules/javafx.graphics/src/main/native-prism/PrismPrint.c) | Foreach-Object {$_ -replace 'JNIEXPORT jobject', 'JNIEXPORT jobject JNICALL'} | Set-Content modules/javafx.graphics/src/main/native-prism/PrismPrint.c
+
     $env:MSVC_VER = '14.14.26428'
 
     $env:MSVC_REDIST_VER = '14.14.26405'
