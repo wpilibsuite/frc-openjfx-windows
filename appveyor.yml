@@ -27,6 +27,10 @@ build_script:
 
     (Get-Content build.gradle) | Foreach-Object {$_ -replace '^ext.OS_ARCH =.+$', 'ext.OS_ARCH = "x86"'} | Set-Content build.gradle
 
+    (Get-Content buildSrc/win.gradle) | Foreach-Object {$_ -replace 'Professional', 'Community'} | Set-Content buildSrc/win.gradle
+
+    (Get-Content buildSrc/genVSproperties.bat) | Foreach-Object {$_ -replace 'Professional', 'Community'} | Set-Content buildSrc/genVSproperties.bat
+
     ./gradlew zips
 
     if ($LastExitCode -eq 0) {
