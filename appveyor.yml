@@ -34,9 +34,9 @@ build_script:
 
     (Get-Content buildSrc/genVSproperties.bat) | Foreach-Object {$_ -replace 'Professional', 'Community'} | Set-Content buildSrc/genVSproperties.bat
 
-    $env:MSVC_VER = '14.15.26428'
+    $env:MSVC_VER = '14.14.26428'
 
-    $env:MSVC_REDIST_VER = '14.15.26405'
+    $env:MSVC_REDIST_VER = '14.14.26405'
 
     ./gradlew zips
 
