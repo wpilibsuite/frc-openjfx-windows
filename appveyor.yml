@@ -46,10 +46,12 @@ build_script:
       $host.SetShouldExit(0)
     }
 
-    Get-ChildItem -Recurse 'build'
+    cd build
+
+    Compress-Archive -Path sdk -DestinationPath sdk.zip
 test: off
 artifacts:
-- path: ${HG_REV}/rt-${HG_REV}/build/**/*.zip
+- path: ${HG_REV}/rt-${HG_REV}/build/sdk.zip
 deploy:
 - provider: GitHub
   auth_token:
