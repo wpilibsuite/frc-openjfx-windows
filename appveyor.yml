@@ -48,7 +48,21 @@ build_script:
 
     cd build
 
-    Compress-Archive -Path sdk -DestinationPath sdk.zip
+    Add-Type -AssemblyName System.Text.Encoding
+
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+
+    class FixedEncoder : System.Text.UTF8Encoding {
+      FixedEncoder() : base($true) { }
+
+      [byte[]] GetBytes([string] $s)
+      {
+        $s = $s.Replace("\\", "/");
+        return ([System.Text.UTF8Encoding]$this).GetBytes($s);
+      }
+    }
+
+    [System.IO.Compression.ZipFile]::CreateFromDirectory('sdk', 'sdk.zip', [System.IO.Compression.CompressionLevel]::Optimal, $false, [FixedEncoder]::new())
 test: off
 artifacts:
 - path: ${HG_REV}/rt-${HG_REV}/build/sdk.zip
