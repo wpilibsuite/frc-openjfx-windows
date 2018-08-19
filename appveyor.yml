@@ -45,9 +45,13 @@ build_script:
     if ($LastExitCode -eq 0) {
       $host.SetShouldExit(0)
     }
+
+    dir 'build/artifacts'
+
+    dir 'build/artifacts/bundles'
 test: off
 artifacts:
-- path: build/artifacts/bundles/*.zip
+- path: ${HG_REV}/rt-${HG_REV}/build/artifacts/bundles/*.zip
 deploy:
 - provider: GitHub
   auth_token:
