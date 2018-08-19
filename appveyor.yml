@@ -36,7 +36,7 @@ build_script:
 
     $env:MSVC_VER = '14.15.26428'
 
-    $env:MSVC_REDIST_VER = '14.15.26706'
+    $env:MSVC_REDIST_VER = '14.15.26405'
 
     ./gradlew zips
 
