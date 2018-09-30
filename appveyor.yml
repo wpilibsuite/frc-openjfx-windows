@@ -1,8 +1,8 @@
 version: "{branch}-{build}"
 environment:
   global:
-    PATCH_VER: 22
-    HG_REV: 15326b4db607
+    PATCH_VER: 26
+    HG_REV: 9b5708c95686
 pull_requests:
   do_not_increment_build_number: true
 branches:
@@ -36,6 +36,10 @@ build_script:
     (Get-Content buildSrc/genVSproperties.bat) | Foreach-Object {$_ -replace 'Professional', 'Community'} | Set-Content buildSrc/genVSproperties.bat
 
     (Get-Content modules/javafx.graphics/src/main/native-prism/PrismPrint.c) | Foreach-Object {$_ -replace 'JNIEXPORT jobject', 'JNIEXPORT jobject JNICALL'} | Set-Content modules/javafx.graphics/src/main/native-prism/PrismPrint.c
+
+    (Get-Content modules/javafx.graphics/src/main/native-glass/win/GlassClipboard.cpp) | Foreach-Object {$_ -replace '_HASH_SEED', 'size_t(0xdeadbeef)'} | Set-Content modules/javafx.graphics/src/main/native-glass/win/GlassClipboard.cpp
+
+    Invoke-WebRequest 'http://hg.openjdk.java.net/openjfx/jfx/rt/raw-file/c203627bae51/modules/javafx.web/src/main/native/Source/WTF/wtf/Variant.h' -OutFile 'modules/javafx.web/src/main/native/Source/WTF/wtf/Variant.h'
 
     $env:MSVC_VER = '14.14.26428'
 
