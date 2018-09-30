@@ -41,9 +41,9 @@ build_script:
 
     Invoke-WebRequest 'http://hg.openjdk.java.net/openjfx/jfx/rt/raw-file/c203627bae51/modules/javafx.web/src/main/native/Source/WTF/wtf/Variant.h' -OutFile 'modules/javafx.web/src/main/native/Source/WTF/wtf/Variant.h'
 
-    $env:MSVC_VER = '14.14.26726'
+    $env:MSVC_VER = '14.15.26726'
 
-    $env:MSVC_REDIST_VER = '14.14.26706'
+    $env:MSVC_REDIST_VER = '14.15.26706'
 
     ./gradlew zips
 
