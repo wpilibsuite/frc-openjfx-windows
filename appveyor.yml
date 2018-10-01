@@ -58,7 +58,9 @@ build_script:
     }
     
     mkdir C:\releases
+    
     cd ~
+    
     cd .m2
     
     7z a maven.zip repository
@@ -70,7 +72,7 @@ build_script:
 test: off
 artifacts:
 - path: ${HG_REV}/rt-${HG_REV}/build/sdk.zip
-- path: C:\releases\maven.zip
+- path: ..\..\releases\maven.zip
 deploy:
 - provider: GitHub
   auth_token:
