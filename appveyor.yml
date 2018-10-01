@@ -51,7 +51,9 @@ build_script:
       $host.SetShouldExit(0)
     }
     
-    ./gradlew publish -PrepositoryUrl=file://C:\releases
+    mkdir C:\releases
+    
+    ./gradlew publishToMavenLocal -Dmaven.repo.local=C:\releases
     
     if ($LastExitCode -eq 0) {
       $host.SetShouldExit(0)
