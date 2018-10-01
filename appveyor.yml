@@ -57,12 +57,16 @@ build_script:
     
     if ($LastExitCode -eq 0) {
       $host.SetShouldExit(0)
+    } else {
+      throw ("Exec: " + $errorMessage)
     }
     
     ./gradlew publishToMavenLocal -PHUDSON_JOB_NAME=WPILIB
     
     if ($LastExitCode -eq 0) {
       $host.SetShouldExit(0)
+    } else {
+      throw ("Exec: " + $errorMessage)
     }
     
     mkdir C:\releases
