@@ -30,6 +30,10 @@ build_script:
     cd ($env:HG_REV + "\rt-" + $env:HG_REV)
 
     (Get-Content build.gradle) | Foreach-Object {$_ -replace '^ext.OS_ARCH =.+$', 'ext.OS_ARCH = "x86"'} | Set-Content build.gradle
+    
+    (Get-Content build.gradle) | Foreach-Object {$_ -replace '^ext.MAVEN_GROUP_ID =.+$', 'ext.MAVEN_GROUP_ID = "edu.wpi.first.openjfx"'} | Set-Content build.gradle
+    
+    (Get-Content build.gradle) | Foreach-Object {$_ -replace '^ext.IS_MILESTONE_FCS =.+$', 'ext.IS_MILESTONE_FCS = true'} | Set-Content build.gradle
 
     (Get-Content buildSrc/win.gradle) | Foreach-Object {$_ -replace 'Professional', 'Community'} | Set-Content buildSrc/win.gradle
 
