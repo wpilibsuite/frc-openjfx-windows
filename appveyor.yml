@@ -35,6 +35,8 @@ build_script:
     
     (Get-Content build.gradle) | Foreach-Object {$_.Replace('classifier "$t.name"', 'classifier "win32"')} | Set-Content build.gradle
     
+    (Get-Content javafx.pom) | Foreach-Object {$_.Replace('<groupId>org.openjfx</groupId>', '<groupId>edu.wpi.first.openjfx</groupId>')} | Set-Content javafx.pom
+    
     (Get-Content build.gradle) | Foreach-Object {$_ -replace '^ext.IS_MILESTONE_FCS =.+$', 'ext.IS_MILESTONE_FCS = true'} | Set-Content build.gradle
 
     (Get-Content buildSrc/win.gradle) | Foreach-Object {$_ -replace 'Professional', 'Community'} | Set-Content buildSrc/win.gradle
