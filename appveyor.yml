@@ -53,7 +53,7 @@ build_script:
     
     mkdir C:\releases
     
-    ./gradlew publishToMavenLocal -Dmaven.repo.local=C:\releases
+    ./gradlew -Dmaven.repo.local=C:\releases publishToMavenLocal 
     
     if ($LastExitCode -eq 0) {
       $host.SetShouldExit(0)
