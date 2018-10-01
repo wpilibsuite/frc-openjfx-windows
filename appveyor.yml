@@ -49,13 +49,13 @@ build_script:
 
     $env:MSVC_REDIST_VER = '14.15.26706'
 
-    ./gradlew zips
+    ./gradlew zips -PHUDSON_JOB_NAME=WPILIB
     
     if ($LastExitCode -eq 0) {
       $host.SetShouldExit(0)
     }
     
-    ./gradlew publishToMavenLocal 
+    ./gradlew publishToMavenLocal -PHUDSON_JOB_NAME=WPILIB
     
     if ($LastExitCode -eq 0) {
       $host.SetShouldExit(0)
