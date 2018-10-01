@@ -31,6 +31,8 @@ build_script:
 
     (Get-Content build.gradle) | Foreach-Object {$_ -replace '^ext.OS_ARCH =.+$', 'ext.OS_ARCH = "x86"'} | Set-Content build.gradle
     
+    (Get-Content build.gradle) | Foreach-Object {$_ -replace '^classifier "$t.name"', 'classifier "win32"'} | Set-Content build.gradle
+    
     (Get-Content build.gradle) | Foreach-Object {$_ -replace '^ext.IS_MILESTONE_FCS =.+$', 'ext.IS_MILESTONE_FCS = true'} | Set-Content build.gradle
 
     (Get-Content buildSrc/win.gradle) | Foreach-Object {$_ -replace 'Professional', 'Community'} | Set-Content buildSrc/win.gradle
