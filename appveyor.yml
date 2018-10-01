@@ -46,14 +46,24 @@ build_script:
     $env:MSVC_REDIST_VER = '14.15.26706'
 
     ./gradlew zips
-
+    
     if ($LastExitCode -eq 0) {
       $host.SetShouldExit(0)
     }
+    
+    ./gradlew publish -PrepositoryUrl=C:\releases
+    
+    if ($LastExitCode -eq 0) {
+      $host.SetShouldExit(0)
+    }
+    
+
 - cmd: C:\cygwin64\bin\bash -e -l -c "cd /cygdrive/c/projects/frc-openjfx-windows/${HG_REV}/rt-${HG_REV}/build && zip -r sdk.zip sdk"
+- cmd C:\cygwin64\bin\bash -e -l -c "cd /cygdrive/c/projects/frc-openjfx-windows/${HG_REV}/rt-${HG_REV}/build && zip -r maven.zip /cygdrive/c/releases"
 test: off
 artifacts:
 - path: ${HG_REV}/rt-${HG_REV}/build/sdk.zip
+- path: ${HG_REV}/rt-${HG_REV}/build/maven.zip
 deploy:
 - provider: GitHub
   auth_token:
