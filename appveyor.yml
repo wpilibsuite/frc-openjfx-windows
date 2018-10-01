@@ -65,14 +65,14 @@ build_script:
     
     7z a maven.zip repository
     
-    Copy-Item "maven.zip" -Destination "C:\releases"
+    Copy-Item "maven.zip" -Destination $env:APPVEYOR_BUILD_FOLDER
     
 
 - cmd: C:\cygwin64\bin\bash -e -l -c "cd /cygdrive/c/projects/frc-openjfx-windows/${HG_REV}/rt-${HG_REV}/build && zip -r sdk.zip sdk"
 test: off
 artifacts:
 - path: ${HG_REV}/rt-${HG_REV}/build/sdk.zip
-- path: ..\..\releases\maven.zip
+- path: maven.zip
 deploy:
 - provider: GitHub
   auth_token:
