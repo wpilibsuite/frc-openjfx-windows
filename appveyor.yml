@@ -51,7 +51,7 @@ build_script:
       $host.SetShouldExit(0)
     }
     
-    ./gradlew publish -PrepositoryUrl=C:\releases
+    ./gradlew publish -PrepositoryUrl=file://C:\releases
     
     if ($LastExitCode -eq 0) {
       $host.SetShouldExit(0)
